@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Perfume;
+use Illuminate\Support\Facades\DB;
+
 
 class PerfumeController extends Controller
 {
@@ -44,6 +46,16 @@ class PerfumeController extends Controller
     }
 
     public function updatePerfume( Request $request ) {
+
+        // solution with querybuilder
+
+        DB::table('perfumes')->where('id', $request->id)->update([
+            'name' => $request->name,
+            'type' => $request->type,
+            'price' => $request->price
+        ]);
+
+        return redirect("/perfumes");
 
     }
 
