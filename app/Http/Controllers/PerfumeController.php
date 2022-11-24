@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Perfume;
 use Illuminate\Support\Facades\DB;
-
+use Validator;
 
 class PerfumeController extends Controller
 {
@@ -24,6 +24,18 @@ class PerfumeController extends Controller
     }
 
     public function storePerfume( Request $request ) {
+
+        $validator = Validator::make($request->all(), [
+            "name"=>"required",
+            "type"=>"required",
+            "price"=>"required"
+        ]);
+
+        if ($validator->fails()) {
+            //TODO: return custom error page with "back"button
+            return ("Minden mező kitöltése kötelező!");
+            
+        }
 
         $perfume = new Perfume;
 
